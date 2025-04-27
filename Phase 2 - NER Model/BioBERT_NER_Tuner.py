@@ -41,7 +41,10 @@ def load_conll(file_path):
 train_sentences, train_labels = load_conll("ner_training_data.conll") #ADD TRAINING DATA HERE
 
 # Map labels to integers for training with functions to translate between them
-unique_labels = list(set(tag for doc in train_labels for tag in doc))
+unique_labels = ["O", "B-CANCER_TYPE", "I-CANCER_TYPE", "B-GENOMIC_DATA_TYPE", 
+              "I-GENOMIC_DATA_TYPE", "B-SAMPLE_COUNT", "I-SAMPLE_COUNT", 
+              "B-DATA_ACCESSION", "I-DATA_ACCESSION", "B-DATA_SOURCE", 
+              "I-DATA_SOURCE"] 
 unique_labels.sort()
 label2id = {label: idx for idx, label in enumerate(unique_labels)}
 id2label = {idx: label for label, idx in label2id.items()}
