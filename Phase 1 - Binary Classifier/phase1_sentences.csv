@@ -5,6 +5,3 @@ id,text,has_data,source,processed
 4,All primary RRBS data (fastq files) and raw-methylation calls (hg19 and hg38) are deposited at the European Genome-phenome Archive (EGA) under study accession number: EGAS00001004327.,1,Chen et al. 2020,0
 5,Processed promoter and genomic DNA methylation values (raw and normalized) for the 1538 tumor samples and 244 adjacent normal tissues are available at https://tanaylab.weizmann.ac.il/metabric_rrbs. ,1,Batra et al. 2021,0
 6,"The genomic copy number, gene expression, somatic mutation, and molecular-subtype information has been described previously and is available at the European Genome-phenome Archive (EGAS00000000083).",1,Batra et al. 2021,0
-7,"The METABRIC cohort allowed us to analyze methylation trends within the clinical, genomic, and transcriptional data available for 1538 tumor samples and 244 adjacent normal tissues.",0,Batra et al. 2021,0
-8,"For DNA methylation profiling, we sequenced 1782 samples: 1538 primary breast tumors and 244 adjacent normal samples.",0,Batra et al. 2021,0
-9,"The associated genotype and expression data have been deposited at the European Genome-Phenome Archive (http://www.ebi.ac.uk/ega/), which is hosted by the European Bioinformatics Institute, under accession number EGAS00000000083.",1,Curtis et al. 2012,0

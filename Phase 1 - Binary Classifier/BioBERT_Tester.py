@@ -13,8 +13,6 @@ sure that the BioBERT_Tuner file has been run first.
 """
 
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer
-from datasets import load_dataset
-import torch
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 import pandas as pd
@@ -25,7 +23,7 @@ from sklearn.metrics import confusion_matrix
 # Config
 MODEL_PATH_FINE_TUNED = "./biobert-sentence-model"
 MODEL_NAME_BASE = "dmis-lab/biobert-base-cased-v1.1"
-TEST_CSV_PATH = "phase1_sentences.csv"  # <-- UPDATE THIS
+TEST_CSV_PATH = "phase1_sentences_testing.csv"  # <-- UPDATE THIS
 
 # Load tokenizer
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME_BASE)
@@ -82,18 +80,18 @@ preds_fine, labels_fine = get_predictions(model_fine_tuned, test_dataset)
 preds_base, labels_base = get_predictions(model_base, test_dataset)
 
 # Confusion Matrix Plotter
-def plot_confusion_matrix(preds, labels, title):
+def plot_confusion_matrix(preds, labels, title, color):
     cm = confusion_matrix(labels, preds)
     plt.figure(figsize=(4, 4))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', cbar=False)
+    sns.heatmap(cm, annot=True, fmt='d', cmap=color, cbar=False)
     plt.xlabel("Predicted")
     plt.ylabel("Actual")
     plt.title(title)
     plt.show()
 
 # Plot Confusion Matrices
-plot_confusion_matrix(preds_fine, labels_fine, "Confusion Matrix: Fine-Tuned BioBERT")
-plot_confusion_matrix(preds_base, labels_base, "Confusion Matrix: Base BioBERT")
+plot_confusion_matrix(preds_fine, labels_fine, "Confusion Matrix: Fine-Tuned BioBERT", 'Blues')
+plot_confusion_matrix(preds_base, labels_base, "Confusion Matrix: Base BioBERT", 'Oranges')
 
 # Bar Chart Comparison
 metrics = ["accuracy", "precision", "recall", "f1"]
