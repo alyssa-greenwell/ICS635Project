@@ -13,6 +13,11 @@ import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 from IPython.display import display
 
+# Parameters for ablation studies
+max_tokens = 512; # Recommended range 128 to 512.
+num_epochs = 3; # Recommended range 3 to 5.
+learning_rate = 2e-5; # Recommended range 2e-5 to 5e-5.
+
 # Load CSV
 csv_path = "phase1_sentences.csv"  # Replace with your filename
 df = pd.read_csv(csv_path, header=0)
@@ -32,7 +37,7 @@ model = AutoModelForSequenceClassification.from_pretrained(model_name, num_label
 
 # Tokenize
 def tokenize(batch):
-    return tokenizer(batch["text"], truncation=True, padding="max_length", max_length=512)
+    return tokenizer(batch["text"], truncation=True, padding="max_length", max_length=max_tokens) #can be edited for ablations
 
 dataset = dataset.map(tokenize, batched=True)
 dataset = dataset.remove_columns("text")  # Drop extra columns
@@ -52,10 +57,10 @@ training_args = TrainingArguments(
     eval_strategy="epoch",
     save_strategy="epoch",
     logging_dir="./logs",
-    learning_rate=2e-5,
+    learning_rate=learning_rate, #can be edited for ablations
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
-    num_train_epochs=3,
+    num_train_epochs=num_epochs, #can be edited for ablations
     weight_decay=0.01,
     load_best_model_at_end=True,
 )

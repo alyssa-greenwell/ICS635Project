@@ -9,6 +9,11 @@ It creates a local directory that has the model.
 from datasets import Dataset
 from transformers import AutoTokenizer, AutoModelForTokenClassification, TrainingArguments, Trainer
 
+# Parameters for ablation studies
+max_tokens = 512; # Recommended range 128 to 512.
+num_epochs = 3; # Recommended range 3 to 5.
+learning_rate = 2e-5; # Recommended range 2e-5 to 5e-5.
+
 # Function to Load CoNLL file
 def load_conll(file_path):
     sentences = []
@@ -60,7 +65,7 @@ def tokenize_and_align_labels(sentences, labels):
         is_split_into_words=True,
         truncation=True,
         padding="max_length",
-        max_length=128,
+        max_length=max_tokens, #Can be edited for ablations
         return_tensors="pt"
     )
 
@@ -97,10 +102,10 @@ model = AutoModelForTokenClassification.from_pretrained(
 training_args = TrainingArguments(
     output_dir="./biobert-ner",
     save_strategy="epoch",
-    learning_rate=3e-5,
+    learning_rate=learning_rate, #can be edited for ablations
     per_device_train_batch_size=16,
     per_device_eval_batch_size=16,
-    num_train_epochs=3,
+    num_train_epochs=num_epochs, #can be edited for ablations
     weight_decay=0.01,
     logging_dir="./logs",
 )
