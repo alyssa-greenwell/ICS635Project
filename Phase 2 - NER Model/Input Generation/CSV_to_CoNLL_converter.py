@@ -13,14 +13,14 @@ import sys
 input_path = sys.argv[1]
 output_path = sys.argv[2]
 
-# Creating custom pipeline
-nlp = spacy.load('en_core_web_sm')
+# Creating custom model (using models existing pipelines, minus NER)
+nlp = spacy.load('en_core_web_sm', exclude="ner")
 
 # Add a phrase matcher
 matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
 
 # Add the entity ruler component to the pipeline
-ruler = nlp.add_pipe("entity_ruler", before="ner", config={"overwrite_ents": True})
+ruler = nlp.add_pipe("entity_ruler", config={"overwrite_ents": True})
 
 # List of genomic patterns to match
 genomic_terms = [
@@ -141,7 +141,7 @@ def process_text(text, extra_input, filepath):
     file.write("\n")
     file.close()
 
-input_df = pd.read_csv(input_path, sep='\t', index_col = 0)
+input_df = pd.read_csv(input_path, index_col = 0)
 input_df = input_df.dropna()
 input_df = input_df.query('processed == 0')
 
