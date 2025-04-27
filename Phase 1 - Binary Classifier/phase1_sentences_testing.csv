@@ -1,3 +1,4 @@
+id,text,has_data,source,processed
 1,"The METABRIC cohort allowed us to analyze methylation trends within the clinical, genomic, and transcriptional data available for 1538 tumor samples and 244 adjacent normal tissues.",0,Batra et al. 2021,0
 2,"For DNA methylation profiling, we sequenced 1782 samples: 1538 primary breast tumors and 244 adjacent normal samples.",0,Batra et al. 2021,0
 3,"The associated genotype and expression data have been deposited at the European Genome-Phenome Archive (http://www.ebi.ac.uk/ega/), which is hosted by the European Bioinformatics Institute, under accession number EGAS00000000083.",1,Curtis et al. 2012,0
