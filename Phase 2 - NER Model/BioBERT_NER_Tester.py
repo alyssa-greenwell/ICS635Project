@@ -21,11 +21,11 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 # Setup
 fine_tuned_model_path = "./biobert-ner-model"
 base_model_name = "dmis-lab/biobert-base-cased-v1.1"
-#List of all classes, currently there are 14 here that I could find
-label_list = ["O", "B-CARDINAL", "B-CANCER_TYPE", "B-NORP", "B-GPE", "B-ORG", 
-              "B-GENOMIC_DATA_TYPE", "I-GENOMIC_DATA_TYPE", "B-SAMPLE_COUNT", 
-              "I-SAMPLE_COUNT", "B-DATA_ACCESSION", "I-DATA_ACCESSION", 
-              "B-DATA_SOURCE", "I-DATA_SOURCE"] 
+#List of all classes, currently there are the ones that I could find
+label_list = ["O", "B-CANCER_TYPE", "I-CANCER_TYPE", "B-GENOMIC_DATA_TYPE", 
+              "I-GENOMIC_DATA_TYPE", "B-SAMPLE_COUNT", "I-SAMPLE_COUNT", 
+              "B-DATA_ACCESSION", "I-DATA_ACCESSION", "B-DATA_SOURCE", 
+              "I-DATA_SOURCE"] 
 label2id = {label: i for i, label in enumerate(label_list)}
 id2label = {i: label for i, label in enumerate(label_list)}
 
