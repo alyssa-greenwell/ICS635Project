@@ -27,14 +27,15 @@ genomic_terms = [
                 "raw methylation", "methylation values", "raw-methylation", 
                 "copy number variations", "WES", "whole exome sequence", "whole genome sequence", "WGS", 
                 "transcriptome sequencing", "methylation profiling",
-                "expression data", "DNA sequence", "RNA sequence", "RRBS", "sequencing data"
+                "expression data", "DNA sequence", "RNA sequence", "RRBS", "sequencing data", "RNA samples",
+                "microarray data"
                 ]
 genomic_patterns = [nlp.make_doc(text) for text in genomic_terms]
 matcher.add("GENOMIC_DATA_TYPE", genomic_patterns)
 
 # List of cancer type strings to match
 cancer_types = [
-    "ACC", "Adrenocortical carcinoma", "BLCA", "Bladder Urothelial carcinoma", "BRCA", "Breast invasive carcinoma", "CESC", "Cervical squamous cell carcinoma and endocervical adenocarcinoma", "CHOL", "Cholangiocarcinoma", "COAD", "Colon adenocarcinoma", "DLBC", "Lymphoid Neoplasm Diffuse Large B-cell Lymphoma", "ESCA", "Esophageal carcinoma", "GBM", "Glioblastoma multiforme", "HNSC", "Head and Neck squamous cell carcinoma", "KICH", "Kidney Chromophobe", "KIRC", "Kidney renal clear cell carcinoma", "KIRP", "Kidney renal papillary cell carcinoma", "LAML", "Acute Myeloid Leukemia", "LGG", "Brain Lower Grade Glioma", "LIHC", "Liver hepatocellular carcinoma", "LUAD", "Lung adenocarcinoma", "LUSC", "Lung squamous cell carcinoma", "MESO", "Mesothelioma", "OV", "Ovarian serous cystadenocarcinoma", "PAAD", "Pancreatic adenocarcinoma", "PCPG", "Pheochromocytoma and Paraganglioma", "PRAD", "Prostate adenocarcinoma", "READ", "Rectum adenocarcinoma", "SARC", "Sarcoma", "SKCM", "Skin Cutaneous Melanoma", "STAD", "Stomach adenocarcinoma", "TGCT", "Testicular Germ Cell Tumors", "THCA", "Thyroid carcinoma", "THYM", "Thymoma", "UCEC", "Uterine Corpus Endometrial Carcinoma", "UCS", "Uterine Carcinosarcoma", "UVM", "Uveal Melanoma" 
+    "ACC", "Adrenocortical carcinoma", "BLCA", "Bladder Urothelial carcinoma", "BRCA", "Breast invasive carcinoma", "CESC", "Cervical squamous cell carcinoma and endocervical adenocarcinoma", "CHOL", "Cholangiocarcinoma", "COAD", "Colon adenocarcinoma", "DLBC", "Lymphoid Neoplasm Diffuse Large B-cell Lymphoma", "ESCA", "Esophageal carcinoma", "GBM", "Glioblastoma multiforme", "HNSC", "Head and Neck squamous cell carcinoma", "KICH", "Kidney Chromophobe", "KIRC", "Kidney renal clear cell carcinoma", "KIRP", "Kidney renal papillary cell carcinoma", "LAML", "Acute Myeloid Leukemia", "LGG", "Brain Lower Grade Glioma", "LIHC", "Liver hepatocellular carcinoma", "LUAD", "Lung adenocarcinoma", "LUSC", "Lung squamous cell carcinoma", "MESO", "Mesothelioma", "OV", "Ovarian serous cystadenocarcinoma", "PAAD", "Pancreatic adenocarcinoma", "PCPG", "Pheochromocytoma and Paraganglioma", "PRAD", "Prostate adenocarcinoma", "READ", "Rectum adenocarcinoma", "SARC", "Sarcoma", "SKCM", "Skin Cutaneous Melanoma", "STAD", "Stomach adenocarcinoma", "TGCT", "Testicular Germ Cell Tumors", "THCA", "Thyroid carcinoma", "THYM", "Thymoma", "UCEC", "Uterine Corpus Endometrial Carcinoma", "UCS", "Uterine Carcinosarcoma", "UVM", "Uveal Melanoma", "breast", "lung", "kidney", "renal", "bladder", "brain", "liver", "prostate" 
 ]
 cancer_patterns = [nlp.make_doc(text) for text in cancer_types]
 matcher.add("CANCER_TYPE", cancer_patterns)
@@ -90,11 +91,18 @@ nlp.add_pipe("add_matcher_entities", after="entity_ruler")
 
 # Define patterns for custom entities
 patterns2 = [
-    {"label": "CANCER_TYPE", "pattern": [{"LOWER": "bladder"}]},
     {"label": "DATA_SOURCE", "pattern": "OncoSG"},
+    {"label": "DATA_SOURCE", "pattern": "dbGaP"},
+    {"label": "DATA_SOURCE", "pattern": "SRA"},
+    {"label": "DATA_SOURCE", "pattern": "EGA"},
+    {"label": "DATA_SOURCE", "pattern": "TCGA"},
+    {"label": "DATA_SOURCE", "pattern": "CPTAC"},
+    {"label": "DATA_SOURCE", "pattern": "UCSC"},
     {"label": "DATA_SOURCE", "pattern": [{"LOWER": "european"}, {"LOWER": "genome"}, {"OP": "?", "LOWER": "-"}, 
                                         {"LOWER": "phenome"}, {"LOWER": "archive"}]},
     {"label": "DATA_SOURCE", "pattern": [{"LOWER": "gene"}, {"LOWER": "expression"}, {"LOWER": "omnibus"}]},
+    {"label": "DATA_SOURCE", "pattern": [{"LOWER": "sequence"}, {"LOWER": "read"}, {"LOWER": "archive"}]},
+    {"label": "DATA_SOURCE", "pattern": [{"LOWER": "database"}, {"LOWER": "of"}, {"LOWER": "genotypes"}, {"LOWER": "and"}, {"LOWER": "phenotypes"}]},
     {"label": "DATA_ACCESSION", "pattern": [{"TEXT": {"REGEX": "EGA[S,D][0-9]{11}"}}]},
     {"label": "DATA_ACCESSION", "pattern": [{"TEXT": {"REGEX": "GSE[0-9]{1,10}"}}]},
     {"label": "SAMPLE_COUNT", 
