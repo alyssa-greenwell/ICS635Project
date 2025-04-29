@@ -1,6 +1,9 @@
 To use:
-First run BioBERT_Tuner.py to build the model.
-Then run BioBERT_Tester.py to test the model.
 
-Currently both the tuner and tester use the same .csv file to pull samples from, eventually they need to be split into a tuner and tester file.
-If you are getting an error while running the BioBERT_Tester.py file, delete the biobert-sentence-model directory and rerun BioBERT_Tuner.py. You may need to close your IDE to do so.
+Both Phase 1 and Phase 2 work the same.
+
+- First run the tuner file (either BioBERT_Tuner.py or BioBERT_NER_Tuner.py) to build the model.
+- Then run the tester file (either BioBERT_Tester.py or BioBERT_NER_Tester.py) to test the model.
+
+The tuner file creates a a directory that contains the fine-tuned model. Then, the tester file takes the fine-tuned model and evaluates it compared to an untuned BioBERT model.
+If you are getting an error while running the tester file, delete the biobert-sentence-model directory and rerun the tuner file. You may need to close your IDE to do so.
