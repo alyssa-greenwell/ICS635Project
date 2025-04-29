@@ -14,7 +14,6 @@ input_path = sys.argv[1]
 output_path = sys.argv[2]
 
 # Creating custom model (using models existing pipelines, minus NER)
-# nlp = spacy.load('en_core_web_sm', exclude="ner")
 nlp = spacy.load('en_core_web_sm', exclude="ner")
 
 # Add a phrase matcher
