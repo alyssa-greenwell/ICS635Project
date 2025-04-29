@@ -14,6 +14,7 @@ input_path = sys.argv[1]
 output_path = sys.argv[2]
 
 # Creating custom model (using models existing pipelines, minus NER)
+# nlp = spacy.load('en_core_web_sm', exclude="ner")
 nlp = spacy.load('en_core_web_sm', exclude="ner")
 
 # Add a phrase matcher
@@ -24,10 +25,9 @@ ruler = nlp.add_pipe("entity_ruler", config={"overwrite_ents": True})
 
 # List of genomic patterns to match
 genomic_terms = [
-                "raw methylation", "methylation values", "raw-methylation", 
-                "copy number variations", "WES", "whole exome sequence", "whole genome sequence", "WGS", 
-                "transcriptome sequencing", "methylation profiling",
-                "expression data", "DNA sequence", "RNA sequence", "RRBS", "sequencing data", "RNA samples",
+                "raw methylation", "methylation values", "raw-methylation", "sequencing data", "RRBS",  "methylation profiling",
+                "copy number variations", "WES", "whole exome sequence", "whole genome sequence", "WGS", "DNA sequence",
+                "transcriptome sequencing", "expression data", "expression profiling", "mRNA expression", "RNA sequence", "RNA samples",
                 "microarray data"
                 ]
 genomic_patterns = [nlp.make_doc(text) for text in genomic_terms]
@@ -35,7 +35,7 @@ matcher.add("GENOMIC_DATA_TYPE", genomic_patterns)
 
 # List of cancer type strings to match
 cancer_types = [
-    "ACC", "Adrenocortical carcinoma", "BLCA", "Bladder Urothelial carcinoma", "BRCA", "Breast invasive carcinoma", "CESC", "Cervical squamous cell carcinoma and endocervical adenocarcinoma", "CHOL", "Cholangiocarcinoma", "COAD", "Colon adenocarcinoma", "DLBC", "Lymphoid Neoplasm Diffuse Large B-cell Lymphoma", "ESCA", "Esophageal carcinoma", "GBM", "Glioblastoma multiforme", "HNSC", "Head and Neck squamous cell carcinoma", "KICH", "Kidney Chromophobe", "KIRC", "Kidney renal clear cell carcinoma", "KIRP", "Kidney renal papillary cell carcinoma", "LAML", "Acute Myeloid Leukemia", "LGG", "Brain Lower Grade Glioma", "LIHC", "Liver hepatocellular carcinoma", "LUAD", "Lung adenocarcinoma", "LUSC", "Lung squamous cell carcinoma", "MESO", "Mesothelioma", "OV", "Ovarian serous cystadenocarcinoma", "PAAD", "Pancreatic adenocarcinoma", "PCPG", "Pheochromocytoma and Paraganglioma", "PRAD", "Prostate adenocarcinoma", "READ", "Rectum adenocarcinoma", "SARC", "Sarcoma", "SKCM", "Skin Cutaneous Melanoma", "STAD", "Stomach adenocarcinoma", "TGCT", "Testicular Germ Cell Tumors", "THCA", "Thyroid carcinoma", "THYM", "Thymoma", "UCEC", "Uterine Corpus Endometrial Carcinoma", "UCS", "Uterine Carcinosarcoma", "UVM", "Uveal Melanoma", "breast", "lung", "kidney", "renal", "bladder", "brain", "liver", "prostate" 
+    "ACC", "Adrenocortical carcinoma", "BLCA", "Bladder Urothelial carcinoma", "BRC", "BRCA", "Breast invasive carcinoma", "CESC", "Cervical squamous cell carcinoma and endocervical adenocarcinoma", "CHOL", "Cholangiocarcinoma", "COAD", "Colon adenocarcinoma", "DLBC", "Lymphoid Neoplasm Diffuse Large B-cell Lymphoma", "lymphoma", "ESCA", "Esophageal carcinoma", "GBM", "Glioblastoma multiforme", "HNSC", "Head and Neck squamous cell carcinoma", "KICH", "Kidney Chromophobe", "KIRC", "Kidney renal clear cell carcinoma", "KIRP", "Kidney renal papillary cell carcinoma", "LAML", "Acute Myeloid Leukemia", "LGG", "Brain Lower Grade Glioma", "LIHC", "Liver hepatocellular carcinoma", "LUAD", "Lung adenocarcinoma", "LUSC", "Lung squamous cell carcinoma", "MESO", "Mesothelioma", "OV", "Ovarian serous cystadenocarcinoma", "PAAD", "Pancreatic adenocarcinoma", "PCPG", "Pheochromocytoma and Paraganglioma", "PRAD", "Prostate adenocarcinoma", "READ", "Rectum adenocarcinoma", "SARC", "Sarcoma", "SKCM", "Skin Cutaneous Melanoma", "STAD", "Stomach adenocarcinoma", "TGCT", "Testicular Germ Cell Tumors", "THCA", "Thyroid carcinoma", "THYM", "Thymoma", "UCEC", "Uterine Corpus Endometrial Carcinoma", "UCS", "Uterine Carcinosarcoma", "UVM", "Uveal Melanoma", "breast", "lung", "kidney", "renal", "bladder", "brain", "liver", "prostate" 
 ]
 cancer_patterns = [nlp.make_doc(text) for text in cancer_types]
 matcher.add("CANCER_TYPE", cancer_patterns)
